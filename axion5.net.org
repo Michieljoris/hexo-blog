@@ -1,0 +1,11 @@
+* TODO
+** services offered page
+** reduce menu font size
+** support page, 
+linking to articles about for instance:
+- how to edit drupal,
+- how to change password
+- how to install and use dropbox
+- how to install and use teamviewer
+- how to use invoice.axion5.net
+- etc

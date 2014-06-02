@@ -1,0 +1,15 @@
+date: 2014-06-02 22:25:01.473
+argv: node /home/michieljoris/bin/hexo generate
+os: Linux 3.8.0-39-generic linux x64
+version:
+  hexo: 2.6.1
+  http_parser: 1.0
+  node: 0.10.28
+  v8: 3.14.5.9
+  ares: 1.9.0-DEV
+  uv: 0.10.27
+  zlib: 1.2.3
+  modules: 11
+  openssl: 1.0.1g
+---
+

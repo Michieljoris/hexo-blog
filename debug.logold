@@ -1,0 +1,45 @@
+date: 2014-04-03 10:38:24.377
+argv: node /home/michieljoris/bin/hexo server
+os: Linux 3.12.8-1-ARCH linux x64
+version:
+  hexo: 2.4.5
+  http_parser: 1.0
+  node: 0.10.24
+  v8: 3.14.5.9
+  ares: 1.9.0-DEV
+  uv: 0.10.21
+  zlib: 1.2.3
+  modules: 11
+  openssl: 1.0.1e
+---
+
+[debug] 10:38:24.199 Configuration file load successfully
+[debug] 10:38:24.202 Version info checked successfully
+[debug] 10:38:24.235 Loading database.
+[debug] 10:38:24.289 Theme layout loaded
+[debug] 10:38:24.308 Theme source loaded
+[debug] 10:38:24.310 Theme configuration loaded
+[debug] 10:38:24.312 Processed: _drafts/welcome-to-the-axion5-website!.md
+[debug] 10:38:24.325 Processed: images/firstdoor.jpg
+[debug] 10:38:24.326 Processed: images/green_glass_terrariums.jpg
+[debug] 10:38:24.326 Processed: images/julangart.jpg
+[debug] 10:38:24.327 Processed: images/mamre.jpg
+[debug] 10:38:24.328 Processed: images/ptw.jpg
+[debug] 10:38:24.329 Processed: downloads/code/test.js
+[debug] 10:38:24.332 Theme language files loaded
+[debug] 10:38:24.365 Processed: about/index.md
+[debug] 10:38:24.366 Processed: websites/index.md
+[debug] 10:38:24.368 Processed: projects/index.md
+[error] 10:38:24.369 { rawMessage: 'Unable to parse.',
+  parsedLine: 3,
+  snippet: 'tags:server',
+  parsedFile: null,
+  message: 'Unable to parse.',
+  domain: 
+   { domain: null,
+     _events: { error: [Function] },
+     _maxListeners: 10,
+     members: [],
+     _disposed: true },
+  domainThrown: true }
+[debug] 10:38:24.376 Processed: _posts/about-this-site.md
