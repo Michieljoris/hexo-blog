@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Projects | Axion5</title>
+  <title>Projects2 | Axion5</title>
   <meta name="author" content="Michiel van Oosten">
   
   <meta name="description" content="bb-server
-Starting out as cobbled together one page node server, it grew over the past year to a more featured server. Totally rewritten and refactore">
+Starting out as cobbled together one page node server, it grew over the pastyear to a more featured server. Totally rewritten and refactored">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="Projects"/>
+  <meta property="og:title" content="Projects2"/>
   <meta property="og:site_name" content="Axion5"/>
 
   
@@ -58,7 +58,7 @@ Starting out as cobbled together one page node server, it grew over the past yea
       
       
   
-    <h1 class="title">Projects</h1>
+    <h1 class="title">Projects2</h1>
   
 
     </header>
@@ -66,28 +66,30 @@ Starting out as cobbled together one page node server, it grew over the past yea
       
         <p><br></p>
 <h3 id="bb-server"><a href="http://github.com/Michieljoris/bb-server" target="_blank" rel="external">bb-server</a></h3>
-<p>Starting out as cobbled together one page node server, it grew over the past year to a more featured server. Totally rewritten and refactored a couple of times, it now can function as a https server, and a socket server as well. Customized logging, caching in memory and disk, and on the fly transpiling, minifying and compressing of assets and more have turned it into a more production ready server. </p>
-<p>At the same time it still starts up with a single word command, all the features are then disabled by default. A lot of features can still be enabled on that same command line, but for an easier and more complete configuration a config file can be used. No plugin system, since it is easier to just write it into the server than designing one, except for the transpilers, compressors etc, more can easily be added by using little api.</p>
+<p>Starting out as cobbled together one page node server, it grew over the past<br>year to a more featured server. Totally rewritten and refactored a couple of<br>times, it now can function as a https server, and a socket server as well.<br>Customized logging, caching in memory and disk, and on the fly transpiling,<br>minifying and compressing of assets and more have turned it into a more<br>production ready server. </p>
+<p>At the same time it still starts up with a single word command, all the features<br>are then disabled by default. A lot of features can still be enabled on that<br>same command line, but for an easier and more complete configuration a config<br>file can be used. No plugin system, since it is easier to just write it into the<br>server than designing one, except for the transpilers, compressors etc, more can<br>easily be added by using little api.</p>
 <p>Mostly a learning experience for me, however I do use it for some of my sites. </p>
 <p><br></p>
 <h3 id="html-builder"><a href="https://github.com/Michieljoris/html-builder" target="_blank" rel="external">html-builder</a></h3>
-<p>A simple html build system using templates of sort. Using <a href="https://github.com/flatiron/plates" target="_blank" rel="external">flatiron plates</a> to fish out markers from the html soup and a javascript object to knit it all together again. But again, because I wrote it myself I can adapt it easily to whatever I need it to be, and you learn a lot while writing and adapting it. <a href="https://github.com/Michieljoris/dbeditor" target="_blank" rel="external">dbeditor</a></p>
-<p>Dbeditor allows you to connect to your dropbox, browse the contents and then edit text files using a markdown or wysiwyg editor.</p>
+<p>A simple html build system using templates of sort. Using<br><a href="https://github.com/flatiron/plates" target="_blank" rel="external">flatiron plates</a> to fish out markers from<br>the html soup and a javascript object to knit it all together again. But again,<br>because I wrote it myself I can adapt it easily to whatever I need it to be, and<br>you learn a lot while writing and adapting it.<br><a href="https://github.com/Michieljoris/dbeditor" target="_blank" rel="external">dbeditor</a></p>
+<p>Dbeditor allows you to connect to your dropbox, browse the contents and then<br>edit text files using a markdown or wysiwyg editor.</p>
 <p><br></p>
 <h3 id="cachejs"><a href="https://github.com/Michieljoris/cachejs" target="_blank" rel="external">cachejs</a></h3>
-<p>Implementation of both LRU and ARC cache. Used in bb-server. It includes a heavily commented arc_cache.js file. The Adaptive Replacement Cache algorithm is supposed be efficient. I think I understand how it works, but whether I could have written it I don&#x2019;t know. It seems clever.<br><br></p>
+<p>Implementation of both LRU and ARC cache. Used in bb-server. It includes a<br>heavily commented arc_cache.js file. The Adaptive Replacement Cache algorithm is<br>supposed be efficient. I think I understand how it works, but whether I could<br>have written it I don&#x2019;t know. It seems clever.</p>
+<p><br></p>
 <h3 id="quilt"><a href="https://github.com/Michieljoris/quilt" target="_blank" rel="external">quilt</a></h3>
-<p>A word play on futon, the database manager that comes with CouchDB. I thought it was not as useful as it could be, so I wrote my own version. It allows you to edit the various design docs in the manager. It also simplifies editing and enabling replications, and a number of other enhancements. As usual I start out with big plans for an app, and implement the bulk of it, but there definitly still things that could be worked on and expanded on. </p>
-<p>The other half of this app is a wizard to make it very easy for people to install and cors enable a CouchDB database for use with an other web app, roster. It then initializes the database depending on who they are and what their preferences are, setting up the right replications and permissions.</p>
+<p>A word play on futon, the database manager that comes with CouchDB. I thought it<br>was not as useful as it could be, so I wrote my own version. It allows you to<br>edit the various design docs in the manager. It also simplifies editing and<br>enabling replications, and a number of other enhancements. As usual I start out<br>with big plans for an app, and implement the bulk of it, but there definitly<br>still things that could be worked on and expanded on. </p>
+<p>The other half of this app is a wizard to make it very easy for people to<br>install and cors enable a CouchDB database for use with an other web app,<br>roster. It then initializes the database depending on who they are and what<br>their preferences are, setting up the right replications and permissions.</p>
 <p><br></p>
 <h3 id="validate_doc_update"><a href="https://github.com/Michieljoris/validate_doc_update" target="_blank" rel="external">validate_doc_update</a></h3>
-<p>Used for the roster web app to easily manage read -and- write permissions. I didn&#x2019;t want to write a different validate_doc_update document for every use case, so I made a generic one that can be controlled via a little dsl, embedded in the read permissions. See the github repo for more info.<br><br></p>
+<p>Used for the roster web app to easily manage read -and- write permissions. I<br>didn&#x2019;t want to write a different validate_doc_update document for every use<br>case, so I made a generic one that can be controlled via a little dsl, embedded<br>in the read permissions. See the github repo for more info.</p>
+<p><br></p>
 <h3 id="roster"><a href="https://github.com/Michieljoris/roster" target="_blank" rel="external">roster</a></h3>
-<p>I&#x2019;ve been doing shift work to make ends meet for a number of years. I got tired of filling in time sheets, I never seemed to do that without at least one mistake or correction, so I made a little Excel worksheet for my own use. This time sheet was picked up by other staff and management and it had to be adapted to other work places. In the end Excel worksheet just got to complicated so I made this web app. </p>
-<p>It is built using <a href="https://smartclient.com/" target="_blank" rel="external">Smartclient</a> for the interface and is served by CouchDB where the data is stored as a couchapp. At the moment it sits on a Linode server. Users are authenticated and can be assigned roles. The user database is synced between databases. I wrote a long spiel about the security aspects of the app <a href="http://roster_help.axion5.net/" target="_blank" rel="external">here</a>.</p>
-<p>The app can be run offline because it uses application cache. The app itself can be synced to a local database, and so can the data the app runs against. The app can also be run against an in-browser database using an implemention of a browser version of CouchDB: <a href="http://pouchdb.com/" target="_blank" rel="external">pouchdb</a>. </p>
-<p>I tried to keep the UI as simple as possible, no menus, only 5 little buttons. The user can build up their own UI to some extent by dragging and dropping, this gets persisted accross sessions, and even accross databases. </p>
-<p>The thing is designed really to be backend agnostic and extendable by plugin views, even plugin types. But at the moment it works against CouchDB and has only the following types (and their editors): shift, location, person, settings, user and the following views of data: table, calendar and time sheet. The design of the app is such that it is quite easy to add more views of the data, like a graph for instance. </p>
+<p>I&#x2019;ve been doing shift work to make ends meet for a number of years. I got tired<br>of filling in time sheets, I never seemed to do that without at least one<br>mistake or correction, so I made a little Excel worksheet for my own use. This<br>time sheet was picked up by other staff and management and it had to be adapted<br>to other work places. In the end Excel worksheet just got to complicated so I<br>made this web app. </p>
+<p>It is built using <a href="https://smartclient.com/" target="_blank" rel="external">Smartclient</a> for the interface and<br>is served by CouchDB where the data is stored as a couchapp. At the moment it<br>sits on a Linode server. Users are authenticated and can be assigned roles. The<br>user database is synced between databases. I wrote a long spiel about the<br>security aspects of the app <a href="http://roster_help.axion5.net/" target="_blank" rel="external">here</a>.</p>
+<p>The app can be run offline because it uses application cache. The app itself can<br>be synced to a local database, and so can the data the app runs against. The app<br>can also be run against an in-browser database using an implemention of a<br>browser version of CouchDB: <a href="http://pouchdb.com/" target="_blank" rel="external">pouchdb</a>. </p>
+<p>I tried to keep the UI as simple as possible, no menus, only 5 little<br>buttons. The user can build up their own UI to some extent by dragging and<br>dropping, this gets persisted accross sessions, and even accross databases. </p>
+<p>The thing is designed really to be backend agnostic and extendable by plugin<br>views, even plugin types. But at the moment it works against CouchDB and has only<br>the following types (and their editors): shift, location, person, settings,<br>user and the following views of data: table, calendar and time sheet. The design<br>of the app is such that it is quite easy to add more views of the data, like a<br>graph for instance. </p>
 <p>From the repo&#x2019;s README:</p>
 <blockquote>
 
@@ -101,7 +103,7 @@ Starting out as cobbled together one page node server, it grew over the past yea
 <p>The app itself is used by a few people at the organisation I wrote it for. I had<br>a meeting/presentation with management, but things can move a bit slow at these<br>organizations. Or maybe I am just not the best salesman..</p>
 <p><br></p>
 <h3 id="bootstrapjs"><a href="https://github.com/Michieljoris/bootstrapjs" target="_blank" rel="external">bootstrapjs</a></h3>
-<p>To keep the roster app modular I wrote my version of requirejs. Not AMD compatible, but same idea and functionality. See the repo for more info. I had ideas of having it concatenate all the files in the right order for production use. However browserify and the use of transpiled languages (clojure!) make it all this a bit obsolete. Let alone that javascript itself will have modules in es6 it seems. But it was fun to write, basically doing a depth first search to resolve the dependencies, with detection of cyclic dependencies.</p>
+<p>To keep the roster app modular I wrote my version of requirejs. Not AMD<br>compatible, but same idea and functionality. See the repo for more info. I had<br>ideas of having it concatenate all the files in the right order for production<br>use. However browserify and the use of transpiled languages (clojure!) make it<br>all this a bit obsolete. Let alone that javascript itself will have modules in<br>es6 it seems. But it was fun to write, basically doing a depth first search to<br>resolve the dependencies, with detection of cyclic dependencies.</p>
 <p><br><br>More on <a href="http://github.com/Michieljoris" target="_blank" rel="external">github</a></p>
 
       

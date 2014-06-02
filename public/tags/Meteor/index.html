@@ -3,19 +3,13 @@
 <head>
   <meta charset="utf-8">
   
-  <title>about | Axion5</title>
+  <title>Meteor | Axion5</title>
   <meta name="author" content="Michiel van Oosten">
-  
-  <meta name="description" content="Living in Brisbane with my wife and two daughters. 
-Dutch by birth. 
-Classical pianist. 
-Piano teacher since 10 years or so. 
-Loving the weather and s">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="about"/>
+  
   <meta property="og:site_name" content="Axion5"/>
 
   
@@ -54,45 +48,61 @@ Loving the weather and s">
 <div class="clearfix"></div>
 </header>
   <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper"><article class="page">
+    <div id="main-col" class="alignleft"><div id="wrapper">
+<h2 class="archive-title tag">Meteor</h2>
+
+
+
+
+<article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
   
   <div class="post-content">
     <header>
       
+        <div class="icon"></div>
+        <time datetime="2014-06-02T12:33:28.000Z"><a href="/Meteor,-docs-and-attached-files/">Jun 2 2014</a></time>
+      
       
   
-    <h1 class="title">about</h1>
+    <h1 class="title"><a href="/Meteor,-docs-and-attached-files/">Meteor, docs and attached files</a></h1>
   
 
     </header>
     <div class="entry">
       
-        <p><br><br>Living in Brisbane with my wife and two daughters. </p>
-<p>Dutch by birth. </p>
-<p>Classical pianist. </p>
-<p>Piano teacher since 10 years or so. </p>
-<p>Loving the weather and space here in Australia but missing the culture of where<br>I come from.</p>
-<p>Enjoy speed skating and wind surfing as sports, sailing as a hobby. </p>
-<p>Love creating things on a computer. </p>
-<p>What else is there to say? </p>
-<p>Contact me at <a href="mailto:mail@axion5.net" target="_blank" rel="external">mail@axion5.net</a>.</p>
+        <p>You can store files directly in MongoDB documents, however there is a limit of 16MB and the Meteor DDP protocol might not be up to the task (reference..)</p>
+<p>There are two atmosphere packages that attempt to fill the gap:</p>
+<ul>
+<li><a href="https://github.com/CollectionFS/Meteor-CollectionFS" target="_blank" rel="external">CollectionFS</a> </li>
+<li><a href="https://github.com/vsivsi/meteor-file-collection/" target="_blank" rel="external">fileCollection</a></li>
+</ul>
+<p>Both are extensively documentend, with the latter one being the lighter one.</p>
+<p>They either use the MongoDB GridFS or store files externally on S3 or the server&#x2019;s file system. They both tie in with the MongoDB style of organising data, extending functionality of collections, by having special &#x2018;file&#x2019; collections.</p>
+<p>These &#x2018;file&#x2019; documents can then be referenced from other documents. With these packages come API&#x2019;s and systems for security, manipulation, filtering, UI helpers etc.</p>
+<p>My eyes drooped and my mind wandered every time I tried to read through the documentation for these packages. It seemed a bit overdone, at least for my purposes.</p>
 
       
     </div>
     <footer>
       
         
+          <div class="alignleft">
+            <a href="/Meteor,-docs-and-attached-files/#more" class="more-link">Read More</a>
+          </div>
         
         
-  <div class="addthis addthis_toolbox addthis_default_style">
-    
-    
-    
-    
-    <a class="addthis_counter addthis_pill_style"></a>
-  </div>
-  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=michieljoris"></script>
-
       
       <div class="clearfix"></div>
     </footer>
@@ -101,6 +111,13 @@ Loving the weather and s">
 
 
 
+
+
+<nav id="pagination">
+  
+  
+  <div class="clearfix"></div>
+</nav>
 
 </div></div>
     <aside id="sidebar" class="alignright">

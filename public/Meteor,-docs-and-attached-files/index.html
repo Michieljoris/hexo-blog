@@ -6,6 +6,17 @@
   <title>Meteor, docs and attached files | Axion5</title>
   <meta name="author" content="Michiel van Oosten">
   
+  <meta name="description" content="You can store files directly in MongoDB documents, however there is a limit of 16MB and the Meteor DDP protocol might not be up to the task (reference..)
+There are two atmosphere packages that attempt to fill the gap:
+
+CollectionFS 
+fileCollection
+
+Both are extensively documentend, with the latter one being the lighter one.
+They either use the MongoDB GridFS or store files externally on S3 or the server&amp;#x2019;s file system. They both tie in with the MongoDB style of organising data, extending functionality of collections, by having special &amp;#x2018;file&amp;#x2019; collections.
+These &amp;#x2018;file&amp;#x2019; documents can then be referenced from other documents. With these packages come API&amp;#x2019;s and systems for security, manipulation, filtering, UI helpers etc.
+My eyes drooped and my mind wandered every time I tried to read through the documentation for these packages. It seemed a bit overdone, at least for my purposes.">
+  
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -76,13 +87,237 @@
     </header>
     <div class="entry">
       
-        
+        <p>You can store files directly in MongoDB documents, however there is a limit of 16MB and the Meteor DDP protocol might not be up to the task (reference..)</p>
+<p>There are two atmosphere packages that attempt to fill the gap:</p>
+<ul>
+<li><a href="https://github.com/CollectionFS/Meteor-CollectionFS" target="_blank" rel="external">CollectionFS</a> </li>
+<li><a href="https://github.com/vsivsi/meteor-file-collection/" target="_blank" rel="external">fileCollection</a></li>
+</ul>
+<p>Both are extensively documentend, with the latter one being the lighter one.</p>
+<p>They either use the MongoDB GridFS or store files externally on S3 or the server&#x2019;s file system. They both tie in with the MongoDB style of organising data, extending functionality of collections, by having special &#x2018;file&#x2019; collections.</p>
+<p>These &#x2018;file&#x2019; documents can then be referenced from other documents. With these packages come API&#x2019;s and systems for security, manipulation, filtering, UI helpers etc.</p>
+<p>My eyes drooped and my mind wandered every time I tried to read through the documentation for these packages. It seemed a bit overdone, at least for my purposes.</p>
+<a id="more"></a>
+
+<p>I have used CouchDB somewhat, and files are called attachments in that corner of the database world. The API is simple, just &#x2018;attach&#x2019; them, and CouchDB takes care of storing them. Access rights are tied to the document they are attached to.</p>
+<p>I tried to implement something similar for Meteor.</p>
+<p>Instead of storing the files in MongoDB, they are stored on and read from the server&#x2019;s hard disk through a separate static file server. Files are attached by path and name to a document, as an array of file objects. Each object can contain as much meta data as you like, but at least the path and name.</p>
+<p>To access a file from the file server an access key needs to accompany the request for the file. This access key is generated (and encrypted) server side by Meteor when the document is published that has the reference to the file. The access key contains two references, one to the currently logged in user&#x2019;s hashed log in token, and one to md5 hash of the contents of the file.</p>
+<p>Because transform (reference..) doesn&#x2019;t work on the server side I am using added and friends to modify the relevant docs when published:</p>
+<figure class="highlight javascript"><figcaption><span>Draft of attaching access keys to files in Meteor.publish</span></figcaption><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+</pre></td><td class="code"><pre>
+Meteor.publish(<span class="string">&quot;products&quot;</span>, <span class="function"><span class="keyword">function</span> <span class="params">(options)</span> {</span>
+    <span class="keyword">var</span> sub = <span class="keyword">this</span>; 
+    <span class="keyword">var</span> userId = <span class="keyword">this</span>.userId;
+    <span class="keyword">var</span> user = Meteor.users.findOne({_id: userId});
+    <span class="keyword">var</span> handle = Products.find({}).observeChanges({
+        added: <span class="function"><span class="keyword">function</span><span class="params">(id, product)</span> {</span>
+            <span class="keyword">var</span> hashedToken = <span class="string">&apos;&apos;</span>;
+            <span class="keyword">try</span> {
+                hashedToken = user.services.resume.loginTokens[<span class="number">0</span>].hashedToken;
+            } <span class="keyword">catch</span>(e) { }
+            <span class="keyword">if</span> (user &amp;&amp; hashedToken &amp;&amp; product.files) {
+                product.files = product.files.map(<span class="function"><span class="keyword">function</span><span class="params">(f)</span> {</span>
+                    <span class="keyword">var</span> loginToken = hashedToken;
+                    <span class="keyword">var</span> encrypted = encrypt(<span class="built_in">JSON</span>.stringify({l:loginToken,f:f.md5}), pwd);
+                    <span class="keyword">return</span> _.extend(f, { key  : encrypted.encrypted });
+                });
+            }
+            sub.added(<span class="string">&apos;products&apos;</span>, id, product);
+        },
+        changed: <span class="function"><span class="keyword">function</span><span class="params">(id, fields)</span> {</span>
+            sub.changed(<span class="string">&apos;products&apos;</span>, id, fields);
+        },
+        removed: <span class="function"><span class="keyword">function</span><span class="params">(id)</span> {</span>
+            <span class="comment">// stop observing changes on the post&apos;s comments</span>
+            <span class="comment">// commentHandles[id] &amp;&amp; commentHandles[id].stop();</span>
+            <span class="comment">// delete the post</span>
+            sub.removed(<span class="string">&apos;products&apos;</span>, id);
+        }
+    });
+    sub.ready();
+    sub.onStop(<span class="function"><span class="keyword">function</span><span class="params">()</span> {</span> handle.stop(); });
+});
+</pre></td></tr></table></figure>
+
+<p>Because the access key gets added to the docs at publication time, and includes the currently logged in user&#x2019;s login token (or hashed version then), every user and every session will get different access keys for the same files. Two different users will have two different access keys, and when a user logs out and in again, the access keys will different as well, since their login token has changed.</p>
+<p>You need to be logged in to create any access key at all, and you need access to the document before you get the access key for any attached document. And since the access keys are generated server side, and encrypted with a secret password, no user is able to generate any access key on their own, even when they know their own loginToken (they do) and they know the md5 (which they might) of the file they want.</p>
+<p>However the static file server does know the password (shared with meteor) to decrypt the access key to its components. With it they can check whether the login token is valid (by accessing Meteor&#x2019;s MongoDB instance), in other words whether the user that received the access key with an document they were allowed to access is actually logged in. The file server can also check whether the file requested (in the path of the request) is actually the file that was attached to the document in the first place using the decrypted md5 in the access key:</p>
+<figure class="highlight javascript"><figcaption><span>Draft of server side authorizing of request</span></figcaption><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+</pre></td><td class="code"><pre>
+module.exports = <span class="function"><span class="keyword">function</span><span class="params">(req)</span> {</span>
+    <span class="keyword">if</span> (req.url.pathname.indexOf(<span class="string">&apos;/public&apos;</span>) === <span class="number">0</span>) <span class="keyword">return</span> VOW.kept(); 
+    <span class="keyword">var</span> vow = VOW.make();
+    
+    <span class="keyword">var</span> query = req.url.search;
+    <span class="keyword">var</span> decrypted = decrypt(query.slice(<span class="number">1</span>), pwd);
+    <span class="keyword">var</span> data;
+    <span class="keyword">if</span> (decrypted.error) 
+        vow.break({ forbidden: <span class="literal">true</span>, srcPath: req.url.pathname });
+    <span class="keyword">else</span> {
+        <span class="keyword">try</span> {
+            data = <span class="built_in">JSON</span>.parse(decrypted.decrypted);
+        } <span class="keyword">catch</span>(e) {
+            vow.break({ forbidden: <span class="literal">true</span>, srcPath: req.url.pathname });
+        }
+        <span class="keyword">var</span> hashedToken = data.l;
+        retrieveUser(hashedToken).when(
+            <span class="function"><span class="keyword">function</span><span class="params">(user)</span> {</span>
+                console.log(<span class="string">&quot;file retrieval of &quot;</span> + req.url.pathname  + <span class="string">&apos; by &apos;</span> , user.emails);
+                vow.keep();
+                
+            },
+            <span class="function"><span class="keyword">function</span><span class="params">(err)</span> {</span>
+                console.log(err);
+                vow.break({ forbidden: <span class="literal">true</span>, srcPath: req.url.pathname });
+            }
+        );
+    }
+    <span class="keyword">return</span> vow.promise;
+  
+};
+</pre></td></tr></table></figure><br>Requests come in the form of:<br><br><code>http://files.server.com/path/to/somefile?KJSDFS93450FJDKSFJKDJFLSFS8908</code><br><br>With the part after the question mark being the access key.<br><br>When a user uploads a file, the md5 of the file can be calculated client side (by a library such as <a href="https://github.com/satazor/SparkMD5" target="_blank" rel="external">SparkMD5</a> for instance), and saved with the document. You could then forbid updating the md5 of any attachments server side perhaps, or attach them server side when the documents gets saved.<br><br>Users could reuse an access key for a different path on the file server, in the same session (with the same login token) only if the file on that different path has the same md5 checksum, in other words, it&#x2019;s the same file.<br><br>Additional access rights to documents and thus to files can be granted to users within the same session, however when you take away access rights the documents will be &#x2018;denied&#x2019;, but the files will still be accessible. However when the logged in user logs out and then in again (new loginToken) the files will be disallowed as well. You could perhaps force to log everybody out <code>Meteor.logoutOtherClients</code>, or somehow issue everybody with new login tokens.<br><br>Another caveat is that once a user copies or retrieves the url to a file, this url will work in any browser, on any computer as long as the user is logged in. It might be possible to work around this by setting a cookie (to the loginToken for example) in the tab and browser where the user is logged into the app. The file server can check whether the loginToken in the decrypted access key is the same as the cookie received with the request.<br><br>The system is rather simple, and only needs a slight modification to an otherwise open static file server (I used my own <a href="http://github.com/Michieljoris/bb-server" target="_blank" rel="external">bb-server</a>), and a small adaption of publish functions for documents that can refer to files. You also have to write the user interface part of listing, uploading, deleting, retrieving of file attachments.<br><br>For my own and future reference here is the code for uploading files:<br><figure class="highlight html"><figcaption><span>Custom styleable upload link</span></figcaption><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">&quot;file&quot;</span> <span class="attribute">id</span>=<span class="value">&quot;fileElem&quot;</span> <span class="attribute">multiple</span> <span class="attribute">accept</span>=<span class="value">&quot;*&quot;</span> <span class="attribute">style</span>=<span class="value">&quot;display:none&quot;</span> <span class="attribute">onchange</span>=<span class="value">&quot;handleFiles(this.files)&quot;</span>&gt;</span>
+<span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">&quot;#&quot;</span> <span class="attribute">id</span>=<span class="value">&quot;fileSelect&quot;</span>&gt;</span>Select files<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
+</pre></td></tr></table></figure>  
+
+<figure class="highlight javascript"><figcaption><span>Use HTML5 filereader to read and ajax post the file</span></figcaption><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">function</span> <span class="title">saveFile</span><span class="params">(fileName, data)</span> {</span>
+    <span class="keyword">if</span> (!fileName) {
+        console.log(<span class="string">&apos;no filename, so not saving&apos;</span>, data);
+    }
+    console.log(<span class="string">&apos;Saving file &apos;</span> + fileName);
+    HTTP.call(<span class="string">&apos;POST&apos;</span>, FILEHOST + <span class="string">&apos;/?path=&apos;</span> + fileName, {
+        content: data
+    }, <span class="function"><span class="keyword">function</span><span class="params">(error, result)</span> {</span>
+        console.log(<span class="string">&apos;error: &apos;</span>, error, <span class="string">&apos;\nresult: &apos;</span>, result);
+	<span class="keyword">if</span> (error) {
+            console.log(<span class="string">&apos;Failed to save on the server &apos;</span>, data.error);
+            alert(<span class="string">&apos;Warning: this file did not save to the server!!&apos;</span>);
+	}
+	<span class="keyword">else</span> console.log(<span class="string">&quot;Success. Data saved to:&quot;</span>, fileName);
+    });
+} 
+
+handleFiles = <span class="function"><span class="keyword">function</span> <span class="title">handleFiles</span><span class="params">(files)</span> {</span>
+    <span class="comment">// console.log(files);</span>
+    <span class="keyword">var</span> fileList = files; <span class="comment">/* now you can work with the file list */</span>
+    <span class="keyword">var</span> reader = <span class="keyword">new</span> FileReader();
+    reader.onload = <span class="function"><span class="keyword">function</span><span class="params">(data)</span> {</span>
+        <span class="comment">//post to bb-server </span>
+	<span class="comment">//TODO calculate MD5 of every file</span>
+	<span class="comment">//TODO add multiple file upload support</span>
+        saveFile(fileList[<span class="number">0</span>].name, reader.result);
+    };
+    <span class="comment">// console.log(fileList[0]);</span>
+    reader.readAsText(fileList[<span class="number">0</span>]);
+};
+</pre></td></tr></table></figure>
+
       
     </div>
     <footer>
       
         
         
+  
+  <div class="tags">
+    <a href="/tags/server/">server</a>, <a href="/tags/database/">database</a>, <a href="/tags/Meteor/">Meteor</a>
+  </div>
+
         
   <div class="addthis addthis_toolbox addthis_default_style">
     
@@ -142,11 +377,57 @@
   <h3 class="title">Tags</h3>
   <ul class="entry">
   
-    <li><a href="/tags/server/">server</a><small>1</small></li>
+    <li><a href="/tags/Meteor/">Meteor</a><small>1</small></li>
+  
+    <li><a href="/tags/database/">database</a><small>1</small></li>
+  
+    <li><a href="/tags/server/">server</a><small>2</small></li>
   
   </ul>
 </div>
 
+
+
+  <!-- <article class="post"> -->
+
+  <!--   <div class="post-content"> -->
+      <header>
+
+
+
+
+        <h4 class="title">
+	  <a href="/2014/02/05/welcome-to-the-axion5-website!/">
+	    Welcome!</a></h4>
+
+      </header>
+      <!-- <div class="entry" > -->
+	
+	<div align="justify" style="line-height:1.7em;font-size:13px;font-style:italic;margin-top:-13px"> 
+        <br/>
+
+        <p>I put this site together as a place to showcase the various websites and
+          projects I've done, and to perhaps publish what I think might be useful for
+          others to read.</p>
+        <p>If you are interested in contracting me to build a website for you, please head
+          over to <a href="/websites">websites</a> where I've listed the sites I've done so far and a
+          little info on how it was done.</p>
+        <p>On the <a href="/projects">projects</a> page I've listed a few of my more elaborate or
+          interesting software projects I've done so far. The source code for these and
+          others is up on <a href="http://github.com/michieljoris" target="_blank">github</a>.</p>
+        <p>If you're interested in me personally please check out the <a href="/about">about</a>
+          page. For more detailed background on me please checkout either
+          <a href="http://www.linkedin.com/in/michieljoris" target="_blank">linkedin</a> or
+          <a href="http://careers.stackoverflow.com/michieljoris" target="_blank">careers.stackoverflow</a>.</p>
+        <p>Contact me at <a href="mailto:mail@axion5.net">mail@axion5.net</a></p>
+
+      </div>
+      <footer>
+        <div class="clearfix"></div>
+      </footer>
+      
+  <!--   </div> -->
+  <!-- </article> -->
 </aside>
     <div class="clearfix"></div>
   </div>

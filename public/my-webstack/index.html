@@ -6,9 +6,9 @@
   <title>My webstack | Axion5</title>
   <meta name="author" content="Michiel van Oosten">
   
-  <meta name="description" content="Partly to learn and partly because I like to be in control I wrote my ownwebserver. It started out as a very simple file server but now implements quitea few features. It also now cooperates to some degree with another project ofmine, a simple templating engine.
-I was able to implement a number of ideas across these two projects. One idea isthat instead of having a build tool such as grunt the server can fullfil thisrole on the fly. Since you don&amp;#x2019;t really need to minify, transpile, gzip till aclient browser requests the file, I thought it should be the server&amp;#x2019;s job, notsome arbitrary build tool. 
-Another idea is that browsers implement already the best mechanism for storingresulting files, namely caches. Since we can&amp;#x2019;t always rely on a browser to cacheresources, I added a LRU memory anddisk cache to the server as well.">
+  <meta name="description" content="Partly to learn and partly because I like to be in control I wrote my own webserver. It started out as a very simple file server but now implements quite a few features. It also now cooperates to some degree with another project of mine, a simple templating engine.
+I was able to implement a number of ideas across these two projects. One idea is that instead of having a build tool such as grunt the server can fullfil this role on the fly. Since you don&amp;#x2019;t really need to minify, transpile, gzip till a client browser requests the file, I thought it should be the server&amp;#x2019;s job, not some arbitrary build tool. 
+Another idea is that browsers implement already the best mechanism for storing resulting files, namely caches. Since we can&amp;#x2019;t always rely on a browser to cache resources, I added a LRU memory and disk cache to the server as well.">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -80,22 +80,22 @@ Another idea is that browsers implement already the best mechanism for storingre
     </header>
     <div class="entry">
       
-        <p>Partly to learn and partly because I like to be in control I wrote my own<br>webserver. It started out as a very simple file server but now implements quite<br>a few features. It also now cooperates to some degree with another project of<br>mine, a simple templating engine.</p>
-<p>I was able to implement a number of ideas across these two projects. One idea is<br>that instead of having a build tool such as grunt the server can fullfil this<br>role on the fly. Since you don&#x2019;t really need to minify, transpile, gzip till a<br>client browser requests the file, I thought it should be the server&#x2019;s job, not<br>some arbitrary build tool. </p>
-<p>Another idea is that browsers implement already the best mechanism for storing<br>resulting files, namely caches. Since we can&#x2019;t always rely on a browser to cache<br>resources, I added a <a href="http://github.com/michieljoris/cachejs" target="_blank" rel="external">LRU memory</a> and<br>disk cache to the server as well.</p>
+        <p>Partly to learn and partly because I like to be in control I wrote my own webserver. It started out as a very simple file server but now implements quite a few features. It also now cooperates to some degree with another project of mine, a simple templating engine.</p>
+<p>I was able to implement a number of ideas across these two projects. One idea is that instead of having a build tool such as grunt the server can fullfil this role on the fly. Since you don&#x2019;t really need to minify, transpile, gzip till a client browser requests the file, I thought it should be the server&#x2019;s job, not some arbitrary build tool. </p>
+<p>Another idea is that browsers implement already the best mechanism for storing resulting files, namely caches. Since we can&#x2019;t always rely on a browser to cache resources, I added a <a href="http://github.com/michieljoris/cachejs" target="_blank" rel="external">LRU memory</a> and disk cache to the server as well.</p>
 <a id="more"></a>
 
-<p>A module called <a href="http://github.com/Michieljoris/recaster" target="_blank" rel="external">recaster</a> does the actual<br>transforming. Recast uses multiple passes and is pluggable. At the moment<br>amongst others sweetjs, typescript, coffeescript, minifiers, gzip are<br>implemented. In practice this means you can include for instance a script tag<br>for a some_script.coffee in your html file and actually have a gzipped, minified<br>and transpiled javascript file sent to your browser. Since the file is then<br>cached by the browser and the server this file will not have to be recast till<br>you change it. Since the server is able to send out files with a cachebusting<br>stamp (never expires) ,if enabled, the server won&#x2019;t even be asked for the file<br>anymore. In develop and in production mode all the server is ever sending out is<br>some html file and any changed files.</p>
-<p>Something else I tried to avoid as much as possible is a distinction to the<br>developer between production and develop mode. With an approprate environment<br>variable set, the server and other tools should just do the right thing in<br>different environments. So the server will just not transform or cache files<br>when in a develop environment. No need to rebuild the project for production<br>mode.</p>
-<p>I like a server to be light and nimble, so I started out with a simple command<br>line script, configured with command line options, I tried to stick with this<br>idea as much as possible, so the server still starts up instantly on the<br>commandline and gives some feedback on what it is doing.</p>
-<p>I like a clear distinction between setting options and modifying or writing<br>code. So the server for instance can be configured on the command line, or by<br>passing it a configuration file. The server reads these options and adjusts its<br>behaviour. You don&#x2019;t string modules together, or connect functions in some dsl<br>like source file. Instead I hard code functionality into the server and<br>configure it from the outside. This way the code as a whole stays transparent<br>and nimble and light without the overhead of accomodating clever pluggable<br>constructs.</p>
-<p>Because the recasting principle is so simple and effective I&#x2019;ve been able to<br>implement and add two handy little ideas. One idea is to inject a reload script<br>into served html (just another recast). The reload script I wrote connects to a<br>websocket. The server is able to start up a websocket server and can be given<br>handlers for particular messages. So I have my html templating engine send a<br>message to the server when it finishes building and the server then sends out a<br>reload message to all the connected browsers. Very effective. I found all other<br>mechanisms unreliable, such as inotify, livereload, browser extensions etc.</p>
-<p>The other idea that recaster let me implement rather easily (in combination with<br>html-bulder) is using node modules in the browser. Recast just wraps javascript<br>files with the iife on the fly. This is a full implementation, comparable to<br>browserify, however unlike browserify files of course don&#x2019;t get bundled (you can<br>concatenate them beforehand though if you like though). Which means you don&#x2019;t<br>need source maps to debug them in the browser. Not much else to say about it,<br>the source code is barely 50 lines, other than that you can still write modules<br>in other languages than javascript. In other words any transform that works on<br>normal javascript files still works on node modules. Because I needed it the<br>path module is included by default. The module is called<br><a href="http://github.com/michieljoris/denodify" target="_blank" rel="external">denodify</a></p>
-<p>Some of the functionality above needs the cooperation of html-builder. For<br>instance html-builder is able to cachify resources, that is, it is able to stamp<br>script and link tags. It also can include a script with a list of resources,<br>cache stamps and a cachify function for any client side scripts to use when<br>dynamically requesting resources. Html-builder is able to concatenate js and css<br>files and replace multiple script tags with a few. Originally I wrote<br>html-builder because I really didn&#x2019;t want to write script tags into a html<br>file. I really didn&#x2019;t want to write any html at all, other than structural<br>html. Now structure exists at multiple levels, from <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, <code>&lt;body&gt;</code><br>to the divs or uls of some page or component. Html-builder just fits all these<br>partials and parts together to produce html files. Because the script is pretty<br>straight forward I am able to add for instance a slideshow easily by adding code<br>that writes the html for me to the script and put any customization in<br>html-builder&#x2019;s configuration file, which I called recipe.js.</p>
-<p>The server can be configured to send one specific file unless it&#x2019;s asked for a<br>static resource. A single page (javascript) application can then decide what to<br>show the user in response to any user interaction, such as click on a link for<br>instance. Google might not always use javascript to look at the served<br>page. Google promises to also ask for the same page with an escaped fragment<br>query. In this case a phantomjs created version of the page will be sent, after<br>being cached of course.</p>
-<p>Web applications often need authentication, so I added the server implementation<br>of Persona to the server, with a sample client implementation using<br>Angularjs. For this to work sessions need to be enabled. </p>
-<p>I haven&#x2019;t had a need for real server routing yet, so the configuration for that<br>is really simple. Just add a handler for a POST or GET request for a specific<br>path. With not so much effort you could write a generic handler that dispatches<br>requests depending on the path in the request&#x2019;s url. </p>
-<p><a href="http://github.com/michieljoris/bb-server" target="_blank" rel="external">Bb-server</a> and<br><a href="http://github.com/michieljoris/html-builder" target="_blank" rel="external">html-builder</a> are really good at<br>putting together and serving html, js and css to a browser. However they don&#x2019;t<br>build a front-end. The two main problems there it seems to me are data binding<br>and data sharing. You don&#x2019;t want to mess with event handlers and html elements<br>and any other dom specific minutiae. You want a representation of your ui in<br>your code and the the ui will just have to do its thing which is showing the<br>data in an appropriate form and shoving data back to the code when the user<br>interfaces. At the same time the code needs to be as modular as possible, but<br>still be responsive to these data changes. I think all the big frameworks in<br>vogue are trying to solve these two problems. Frameworks are by necessitiy<br>opiniated though. They like to enforce a preferred way of doing things. I think<br>though that code needs to be free from opinions and guide lines and style guides<br>and be the master of proceedings. It needs to be its own framework. Code needs<br>to use tools, tools shouldn&#x2019;t try to absorb code. So I don&#x2019;t want to use these<br>big frameworks (angular, knockout, ember etc). Maybe one tool should focus on<br>the data binding and components (Reactjs, ractive.js, polymer) and another on<br>message passing (arbiter.js, postaljs, pub/sub). With code being modular and a<br>decent interface to a backend server/database you should be able to write any<br>app you want, implementing bits of frameworks and libraries as you need them.</p>
+<p>A module called <a href="http://github.com/Michieljoris/recaster" target="_blank" rel="external">recaster</a> does the actual transforming. Recast uses multiple passes and is pluggable. At the moment amongst others sweetjs, typescript, coffeescript, minifiers, gzip are implemented. In practice this means you can include for instance a script tag for a some_script.coffee in your html file and actually have a gzipped, minified and transpiled javascript file sent to your browser. Since the file is then cached by the browser and the server this file will not have to be recast till you change it. Since the server is able to send out files with a cachebusting stamp (never expires) ,if enabled, the server won&#x2019;t even be asked for the file anymore. In develop and in production mode all the server is ever sending out is some html file and any changed files.</p>
+<p>Something else I tried to avoid as much as possible is a distinction to the developer between production and develop mode. With an approprate environment variable set, the server and other tools should just do the right thing in different environments. So the server will just not transform or cache files when in a develop environment. No need to rebuild the project for production mode.</p>
+<p>I like a server to be light and nimble, so I started out with a simple command line script, configured with command line options, I tried to stick with this idea as much as possible, so the server still starts up instantly on the commandline and gives some feedback on what it is doing.</p>
+<p>I like a clear distinction between setting options and modifying or writing code. So the server for instance can be configured on the command line, or by passing it a configuration file. The server reads these options and adjusts its behaviour. You don&#x2019;t string modules together, or connect functions in some dsl like source file. Instead I hard code functionality into the server and configure it from the outside. This way the code as a whole stays transparent and nimble and light without the overhead of accomodating clever pluggable constructs.</p>
+<p>Because the recasting principle is so simple and effective I&#x2019;ve been able to implement and add two handy little ideas. One idea is to inject a reload script into served html (just another recast). The reload script I wrote connects to a websocket. The server is able to start up a websocket server and can be given handlers for particular messages. So I have my html templating engine send a message to the server when it finishes building and the server then sends out a reload message to all the connected browsers. Very effective. I found all other mechanisms unreliable, such as inotify, livereload, browser extensions etc.</p>
+<p>The other idea that recaster let me implement rather easily (in combination with html-bulder) is using node modules in the browser. Recast just wraps javascript files with the iife on the fly. This is a full implementation, comparable to browserify, however unlike browserify files of course don&#x2019;t get bundled (you can concatenate them beforehand though if you like though). Which means you don&#x2019;t need source maps to debug them in the browser. Not much else to say about it, the source code is barely 50 lines, other than that you can still write modules in other languages than javascript. In other words any transform that works on normal javascript files still works on node modules. Because I needed it the path module is included by default. The module is called <a href="http://github.com/michieljoris/denodify" target="_blank" rel="external">denodify</a></p>
+<p>Some of the functionality above needs the cooperation of html-builder. For instance html-builder is able to cachify resources, that is, it is able to stamp script and link tags. It also can include a script with a list of resources, cache stamps and a cachify function for any client side scripts to use when dynamically requesting resources. Html-builder is able to concatenate js and css files and replace multiple script tags with a few. Originally I wrote html-builder because I really didn&#x2019;t want to write script tags into a html file. I really didn&#x2019;t want to write any html at all, other than structural html. Now structure exists at multiple levels, from <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, <code>&lt;body&gt;</code> to the divs or uls of some page or component. Html-builder just fits all these partials and parts together to produce html files. Because the script is pretty straight forward I am able to add for instance a slideshow easily by adding code that writes the html for me to the script and put any customization in html-builder&#x2019;s configuration file, which I called recipe.js.</p>
+<p>The server can be configured to send one specific file unless it&#x2019;s asked for a static resource. A single page (javascript) application can then decide what to show the user in response to any user interaction, such as click on a link for instance. Google might not always use javascript to look at the served page. Google promises to also ask for the same page with an escaped fragment query. In this case a phantomjs created version of the page will be sent, after being cached of course.</p>
+<p>Web applications often need authentication, so I added the server implementation of Persona to the server, with a sample client implementation using Angularjs. For this to work sessions need to be enabled. </p>
+<p>I haven&#x2019;t had a need for real server routing yet, so the configuration for that is really simple. Just add a handler for a POST or GET request for a specific path. With not so much effort you could write a generic handler that dispatches requests depending on the path in the request&#x2019;s url. </p>
+<p><a href="http://github.com/michieljoris/bb-server" target="_blank" rel="external">Bb-server</a> and <a href="http://github.com/michieljoris/html-builder" target="_blank" rel="external">html-builder</a> are really good at putting together and serving html, js and css to a browser. However they don&#x2019;t build a front-end. The two main problems there it seems to me are data binding and data sharing. You don&#x2019;t want to mess with event handlers and html elements and any other dom specific minutiae. You want a representation of your ui in your code and the the ui will just have to do its thing which is showing the data in an appropriate form and shoving data back to the code when the user interfaces. At the same time the code needs to be as modular as possible, but still be responsive to these data changes. I think all the big frameworks in vogue are trying to solve these two problems. Frameworks are by necessitiy opiniated though. They like to enforce a preferred way of doing things. I think though that code needs to be free from opinions and guide lines and style guides and be the master of proceedings. It needs to be its own framework. Code needs to use tools, tools shouldn&#x2019;t try to absorb code. So I don&#x2019;t want to use these big frameworks (angular, knockout, ember etc). Maybe one tool should focus on the data binding and components (Reactjs, ractive.js, polymer) and another on message passing (arbiter.js, postaljs, pub/sub). With code being modular and a decent interface to a backend server/database you should be able to write any app you want, implementing bits of frameworks and libraries as you need them. </p>
 
       
     </div>
@@ -167,11 +167,57 @@ Another idea is that browsers implement already the best mechanism for storingre
   <h3 class="title">Tags</h3>
   <ul class="entry">
   
-    <li><a href="/tags/server/">server</a><small>1</small></li>
+    <li><a href="/tags/Meteor/">Meteor</a><small>1</small></li>
+  
+    <li><a href="/tags/database/">database</a><small>1</small></li>
+  
+    <li><a href="/tags/server/">server</a><small>2</small></li>
   
   </ul>
 </div>
 
+
+
+  <!-- <article class="post"> -->
+
+  <!--   <div class="post-content"> -->
+      <header>
+
+
+
+
+        <h4 class="title">
+	  <a href="/2014/02/05/welcome-to-the-axion5-website!/">
+	    Welcome!</a></h4>
+
+      </header>
+      <!-- <div class="entry" > -->
+	
+	<div align="justify" style="line-height:1.7em;font-size:13px;font-style:italic;margin-top:-13px"> 
+        <br/>
+
+        <p>I put this site together as a place to showcase the various websites and
+          projects I've done, and to perhaps publish what I think might be useful for
+          others to read.</p>
+        <p>If you are interested in contracting me to build a website for you, please head
+          over to <a href="/websites">websites</a> where I've listed the sites I've done so far and a
+          little info on how it was done.</p>
+        <p>On the <a href="/projects">projects</a> page I've listed a few of my more elaborate or
+          interesting software projects I've done so far. The source code for these and
+          others is up on <a href="http://github.com/michieljoris" target="_blank">github</a>.</p>
+        <p>If you're interested in me personally please check out the <a href="/about">about</a>
+          page. For more detailed background on me please checkout either
+          <a href="http://www.linkedin.com/in/michieljoris" target="_blank">linkedin</a> or
+          <a href="http://careers.stackoverflow.com/michieljoris" target="_blank">careers.stackoverflow</a>.</p>
+        <p>Contact me at <a href="mailto:mail@axion5.net">mail@axion5.net</a></p>
+
+      </div>
+      <footer>
+        <div class="clearfix"></div>
+      </footer>
+      
+  <!--   </div> -->
+  <!-- </article> -->
 </aside>
     <div class="clearfix"></div>
   </div>

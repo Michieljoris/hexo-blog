@@ -82,11 +82,25 @@
     </header>
     <div class="entry">
       
-        
+        <p>You can store files directly in MongoDB documents, however there is a limit of 16MB and the Meteor DDP protocol might not be up to the task (reference..)</p>
+<p>There are two atmosphere packages that attempt to fill the gap:</p>
+<ul>
+<li><a href="https://github.com/CollectionFS/Meteor-CollectionFS" target="_blank" rel="external">CollectionFS</a> </li>
+<li><a href="https://github.com/vsivsi/meteor-file-collection/" target="_blank" rel="external">fileCollection</a></li>
+</ul>
+<p>Both are extensively documentend, with the latter one being the lighter one.</p>
+<p>They either use the MongoDB GridFS or store files externally on S3 or the server&#x2019;s file system. They both tie in with the MongoDB style of organising data, extending functionality of collections, by having special &#x2018;file&#x2019; collections.</p>
+<p>These &#x2018;file&#x2019; documents can then be referenced from other documents. With these packages come API&#x2019;s and systems for security, manipulation, filtering, UI helpers etc.</p>
+<p>My eyes drooped and my mind wandered every time I tried to read through the documentation for these packages. It seemed a bit overdone, at least for my purposes.</p>
+
       
     </div>
     <footer>
       
+        
+          <div class="alignleft">
+            <a href="/Meteor,-docs-and-attached-files/#more" class="more-link">Read More</a>
+          </div>
         
         
       
@@ -140,11 +154,57 @@
   <h3 class="title">Tags</h3>
   <ul class="entry">
   
-    <li><a href="/tags/server/">server</a><small>1</small></li>
+    <li><a href="/tags/Meteor/">Meteor</a><small>1</small></li>
+  
+    <li><a href="/tags/database/">database</a><small>1</small></li>
+  
+    <li><a href="/tags/server/">server</a><small>2</small></li>
   
   </ul>
 </div>
 
+
+
+  <!-- <article class="post"> -->
+
+  <!--   <div class="post-content"> -->
+      <header>
+
+
+
+
+        <h4 class="title">
+	  <a href="/2014/02/05/welcome-to-the-axion5-website!/">
+	    Welcome!</a></h4>
+
+      </header>
+      <!-- <div class="entry" > -->
+	
+	<div align="justify" style="line-height:1.7em;font-size:13px;font-style:italic;margin-top:-13px"> 
+        <br/>
+
+        <p>I put this site together as a place to showcase the various websites and
+          projects I've done, and to perhaps publish what I think might be useful for
+          others to read.</p>
+        <p>If you are interested in contracting me to build a website for you, please head
+          over to <a href="/websites">websites</a> where I've listed the sites I've done so far and a
+          little info on how it was done.</p>
+        <p>On the <a href="/projects">projects</a> page I've listed a few of my more elaborate or
+          interesting software projects I've done so far. The source code for these and
+          others is up on <a href="http://github.com/michieljoris" target="_blank">github</a>.</p>
+        <p>If you're interested in me personally please check out the <a href="/about">about</a>
+          page. For more detailed background on me please checkout either
+          <a href="http://www.linkedin.com/in/michieljoris" target="_blank">linkedin</a> or
+          <a href="http://careers.stackoverflow.com/michieljoris" target="_blank">careers.stackoverflow</a>.</p>
+        <p>Contact me at <a href="mailto:mail@axion5.net">mail@axion5.net</a></p>
+
+      </div>
+      <footer>
+        <div class="clearfix"></div>
+      </footer>
+      
+  <!--   </div> -->
+  <!-- </article> -->
 </aside>
     <div class="clearfix"></div>
   </div>
