@@ -1,0 +1,32 @@
+menu:
+  Home: /
+  Websites: /websites
+  Projects: /projects
+  Archives: /archives
+  About: /about
+  # RSS: /atom.xml
+
+widgets: 
+- search
+- recent_posts
+- tag
+
+excerpt_link: Read More
+
+twitter:
+  username:
+  show_replies: false
+  tweet_count: 5
+
+addthis:
+  enable: true
+  pubid: michieljoris
+  facebook: false
+  twitter: false
+  google: false
+  pinterest: false 
+
+fancybox: true
+
+google_analytics:
+rss: /atom.xml
