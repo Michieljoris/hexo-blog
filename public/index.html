@@ -48,21 +48,48 @@
 <div class="clearfix"></div>
 </header>
   <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper">
+    <div id="main-col" class="alignleft"><div id="wrapper">  <article class="post">
+
+    <div class="post-content">
+      <header>
 
 
 
 
+        <h1 class="title"><a href="/2014/02/05/welcome-to-the-axion5-website!/">Welcome to the axion5 website!</a></h1>
+
+      </header>
+      <div class="entry">
+        <br/>
+
+        <p>I put this site together as a place to showcase the various websites and
+          projects I've done, and to perhaps publish what I think might be useful for
+          others to read.</p>
+        <p>If you are interested in contracting me to build a website for you, please head
+          over to <a href="/websites">websites</a> where I've listed the sites I've done so far and a
+          little info on how it was done.</p>
+        <p>On the <a href="/projects">projects</a> page I've listed a few of my more elaborate or
+          interesting software projects I've done so far. The source code for these and
+          others is up on <a href="http://github.com/michieljoris" target="_blank">github</a>.</p>
+        <p>If you're interested in me personally please check out the <a href="/about">about</a>
+          page. For more detailed background on me please checkout either
+          <a href="http://www.linkedin.com/in/michieljoris" target="_blank">linkedin</a> or
+          <a href="http://careers.stackoverflow.com/michieljoris" target="_blank">careers.stackoverflow</a>.</p>
+        <p>Contact me at <a href="mailto:mail@axion5.net">mail@axion5.net</a></p>
+
+      </div>
+      <footer>
 
 
-  <nav id="pagination">
 
 
-    <div class="clearfix"></div>
-  </nav>
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+  </article>
 
 
-<article class="post">
+  <article class="post">
   
     <div class="gallery">
   <div class="photoset">
@@ -97,8 +124,8 @@
 <li><a href="https://github.com/vsivsi/meteor-file-collection/" target="_blank" rel="external">fileCollection</a></li>
 </ul>
 <p>Both are extensively documentend, with the latter one being the lighter one.</p>
-<p>They either use the MongoDB GridFS or store files externally on S3 or the server&#x2019;s file system. They both tie in with the MongoDB style of organising data, extending functionality of collections, by having special &#x2018;file&#x2019; collections.</p>
-<p>These &#x2018;file&#x2019; documents can then be referenced from other documents. With these packages come API&#x2019;s and systems for security, manipulation, filtering, UI helpers etc.</p>
+<p>They either use the MongoDB GridFS or store files externally on S3 or the server’s file system. They both tie in with the MongoDB style of organising data, extending functionality of collections, by having special ‘file’ collections.</p>
+<p>These ‘file’ documents can then be referenced from other documents. With these packages come API’s and systems for security, manipulation, filtering, UI helpers etc.</p>
 <p>My eyes drooped and my mind wandered every time I tried to read through the documentation for these packages. It seemed a bit overdone, at least for my purposes.</p>
 
       
@@ -120,7 +147,7 @@
 
 
 
-<article class="post">
+  <article class="post">
   
     <div class="gallery">
   <div class="photoset">
@@ -149,8 +176,8 @@
     <div class="entry">
       
         <p>Partly to learn and partly because I like to be in control I wrote my own webserver. It started out as a very simple file server but now implements quite a few features. It also now cooperates to some degree with another project of mine, a simple templating engine.</p>
-<p>I was able to implement a number of ideas across these two projects. One idea is that instead of having a build tool such as grunt the server can fullfil this role on the fly. Since you don&#x2019;t really need to minify, transpile, gzip till a client browser requests the file, I thought it should be the server&#x2019;s job, not some arbitrary build tool. </p>
-<p>Another idea is that browsers implement already the best mechanism for storing resulting files, namely caches. Since we can&#x2019;t always rely on a browser to cache resources, I added a <a href="http://github.com/michieljoris/cachejs" target="_blank" rel="external">LRU memory</a> and disk cache to the server as well.</p>
+<p>I was able to implement a number of ideas across these two projects. One idea is that instead of having a build tool such as grunt the server can fullfil this role on the fly. Since you don’t really need to minify, transpile, gzip till a client browser requests the file, I thought it should be the server’s job, not some arbitrary build tool. </p>
+<p>Another idea is that browsers implement already the best mechanism for storing resulting files, namely caches. Since we can’t always rely on a browser to cache resources, I added a <a href="http://github.com/michieljoris/cachejs" target="_blank" rel="external">LRU memory</a> and disk cache to the server as well.</p>
 
       
     </div>
@@ -171,7 +198,7 @@
 
 
 
-<article class="post">
+  <article class="post">
   
     <div class="gallery">
   <div class="photoset">
@@ -199,8 +226,8 @@
     </header>
     <div class="entry">
       
-        <p>This site uses <a href="http://zespia.tw/hexo/" target="_blank" rel="external">Hexo</a> as its blogging engine. I intended to use <a href="http://octopress.org" target="_blank" rel="external">Octopress</a> at first but I ran into grief with syntax highlighting for code while testing. Pygments the highlighting library used seems to be unable to parse the language argument in the code block. I tried to sort it out but since I don&#x2019;t know too much about Ruby and I wanted this site up within the day I switched to Hexo. It is very similar to Octopress but uses nodejs and connect with ejs for its templates instead of rails and erb. At least I should be able to fix things if they don&#x2019;t work now, however it has been pretty smooth so far. Posts are written in markdown.</p>
-<p>It might be fun to write about miscellaneous technicalities as I run into them, or I might not bother. It has certainly been useful to me to read the multitude of little articles people have been putting up on their blogs, but I don&#x2019;t know if I should be adding to them. We will see&#x2026;</p>
+        <p>This site uses <a href="http://zespia.tw/hexo/" target="_blank" rel="external">Hexo</a> as its blogging engine. I intended to use <a href="http://octopress.org" target="_blank" rel="external">Octopress</a> at first but I ran into grief with syntax highlighting for code while testing. Pygments the highlighting library used seems to be unable to parse the language argument in the code block. I tried to sort it out but since I don’t know too much about Ruby and I wanted this site up within the day I switched to Hexo. It is very similar to Octopress but uses nodejs and connect with ejs for its templates instead of rails and erb. At least I should be able to fix things if they don’t work now, however it has been pretty smooth so far. Posts are written in markdown.</p>
+<p>It might be fun to write about miscellaneous technicalities as I run into them, or I might not bother. It has certainly been useful to me to read the multitude of little articles people have been putting up on their blogs, but I don’t know if I should be adding to them. We will see…</p>
 
       
     </div>
@@ -222,8 +249,7 @@
   
   
   <div class="clearfix"></div>
-</nav>
-</div></div>
+</nav></div></div>
     <aside id="sidebar" class="alignright">
   <div class="search">
   <form action="//google.com/search" method="get" accept-charset="utf-8">
@@ -267,48 +293,6 @@
   </ul>
 </div>
 
-
-
-  <!-- <article class="post"> -->
-
-  <!--   <div class="post-content"> -->
-      <header>
-
-
-
-
-        <h4 class="title">
-	  <a href="/2014/02/05/welcome-to-the-axion5-website!/">
-	    Welcome!</a></h4>
-
-      </header>
-      <!-- <div class="entry" > -->
-	
-	<div align="justify" style="line-height:1.7em;font-size:13px;font-style:italic;margin-top:-13px"> 
-        <br/>
-
-        <p>I put this site together as a place to showcase the various websites and
-          projects I've done, and to perhaps publish what I think might be useful for
-          others to read.</p>
-        <p>If you are interested in contracting me to build a website for you, please head
-          over to <a href="/websites">websites</a> where I've listed the sites I've done so far and a
-          little info on how it was done.</p>
-        <p>On the <a href="/projects">projects</a> page I've listed a few of my more elaborate or
-          interesting software projects I've done so far. The source code for these and
-          others is up on <a href="http://github.com/michieljoris" target="_blank">github</a>.</p>
-        <p>If you're interested in me personally please check out the <a href="/about">about</a>
-          page. For more detailed background on me please checkout either
-          <a href="http://www.linkedin.com/in/michieljoris" target="_blank">linkedin</a> or
-          <a href="http://careers.stackoverflow.com/michieljoris" target="_blank">careers.stackoverflow</a>.</p>
-        <p>Contact me at <a href="mailto:mail@axion5.net">mail@axion5.net</a></p>
-
-      </div>
-      <footer>
-        <div class="clearfix"></div>
-      </footer>
-      
-  <!--   </div> -->
-  <!-- </article> -->
 </aside>
     <div class="clearfix"></div>
   </div>

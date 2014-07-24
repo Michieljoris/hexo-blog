@@ -75,22 +75,22 @@ Starting out as cobbled together one page node server, it grew over the pastyear
 <p>Dbeditor allows you to connect to your dropbox, browse the contents and then<br>edit text files using a markdown or wysiwyg editor.</p>
 <p><br></p>
 <h3 id="cachejs"><a href="https://github.com/Michieljoris/cachejs" target="_blank" rel="external">cachejs</a></h3>
-<p>Implementation of both LRU and ARC cache. Used in bb-server. It includes a<br>heavily commented arc_cache.js file. The Adaptive Replacement Cache algorithm is<br>supposed be efficient. I think I understand how it works, but whether I could<br>have written it I don&#x2019;t know. It seems clever.</p>
+<p>Implementation of both LRU and ARC cache. Used in bb-server. It includes a<br>heavily commented arc_cache.js file. The Adaptive Replacement Cache algorithm is<br>supposed be efficient. I think I understand how it works, but whether I could<br>have written it I don’t know. It seems clever.</p>
 <p><br></p>
 <h3 id="quilt"><a href="https://github.com/Michieljoris/quilt" target="_blank" rel="external">quilt</a></h3>
 <p>A word play on futon, the database manager that comes with CouchDB. I thought it<br>was not as useful as it could be, so I wrote my own version. It allows you to<br>edit the various design docs in the manager. It also simplifies editing and<br>enabling replications, and a number of other enhancements. As usual I start out<br>with big plans for an app, and implement the bulk of it, but there definitly<br>still things that could be worked on and expanded on. </p>
 <p>The other half of this app is a wizard to make it very easy for people to<br>install and cors enable a CouchDB database for use with an other web app,<br>roster. It then initializes the database depending on who they are and what<br>their preferences are, setting up the right replications and permissions.</p>
 <p><br></p>
 <h3 id="validate_doc_update"><a href="https://github.com/Michieljoris/validate_doc_update" target="_blank" rel="external">validate_doc_update</a></h3>
-<p>Used for the roster web app to easily manage read -and- write permissions. I<br>didn&#x2019;t want to write a different validate_doc_update document for every use<br>case, so I made a generic one that can be controlled via a little dsl, embedded<br>in the read permissions. See the github repo for more info.</p>
+<p>Used for the roster web app to easily manage read -and- write permissions. I<br>didn’t want to write a different validate_doc_update document for every use<br>case, so I made a generic one that can be controlled via a little dsl, embedded<br>in the read permissions. See the github repo for more info.</p>
 <p><br></p>
 <h3 id="roster"><a href="https://github.com/Michieljoris/roster" target="_blank" rel="external">roster</a></h3>
-<p>I&#x2019;ve been doing shift work to make ends meet for a number of years. I got tired<br>of filling in time sheets, I never seemed to do that without at least one<br>mistake or correction, so I made a little Excel worksheet for my own use. This<br>time sheet was picked up by other staff and management and it had to be adapted<br>to other work places. In the end Excel worksheet just got to complicated so I<br>made this web app. </p>
+<p>I’ve been doing shift work to make ends meet for a number of years. I got tired<br>of filling in time sheets, I never seemed to do that without at least one<br>mistake or correction, so I made a little Excel worksheet for my own use. This<br>time sheet was picked up by other staff and management and it had to be adapted<br>to other work places. In the end Excel worksheet just got to complicated so I<br>made this web app. </p>
 <p>It is built using <a href="https://smartclient.com/" target="_blank" rel="external">Smartclient</a> for the interface and<br>is served by CouchDB where the data is stored as a couchapp. At the moment it<br>sits on a Linode server. Users are authenticated and can be assigned roles. The<br>user database is synced between databases. I wrote a long spiel about the<br>security aspects of the app <a href="http://roster_help.axion5.net/" target="_blank" rel="external">here</a>.</p>
 <p>The app can be run offline because it uses application cache. The app itself can<br>be synced to a local database, and so can the data the app runs against. The app<br>can also be run against an in-browser database using an implemention of a<br>browser version of CouchDB: <a href="http://pouchdb.com/" target="_blank" rel="external">pouchdb</a>. </p>
 <p>I tried to keep the UI as simple as possible, no menus, only 5 little<br>buttons. The user can build up their own UI to some extent by dragging and<br>dropping, this gets persisted accross sessions, and even accross databases. </p>
 <p>The thing is designed really to be backend agnostic and extendable by plugin<br>views, even plugin types. But at the moment it works against CouchDB and has only<br>the following types (and their editors): shift, location, person, settings,<br>user and the following views of data: table, calendar and time sheet. The design<br>of the app is such that it is quite easy to add more views of the data, like a<br>graph for instance. </p>
-<p>From the repo&#x2019;s README:</p>
+<p>From the repo’s README:</p>
 <blockquote>
 
 <p>To help people set up a CouchDB instance I wrote quilt, it configures and sets up all the necessary replications for them. It is also a generic CouchDB manager a la futon.</p>
@@ -113,22 +113,11 @@ Starting out as cobbled together one page node server, it grew over the pastyear
         
         
         
-  <div class="addthis addthis_toolbox addthis_default_style">
-    
-    
-    
-    
-    <a class="addthis_counter addthis_pill_style"></a>
-  </div>
-  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=michieljoris"></script>
-
       
       <div class="clearfix"></div>
     </footer>
   </div>
 </article>
-
-
 
 
 </div></div>
@@ -175,48 +164,6 @@ Starting out as cobbled together one page node server, it grew over the pastyear
   </ul>
 </div>
 
-
-
-  <!-- <article class="post"> -->
-
-  <!--   <div class="post-content"> -->
-      <header>
-
-
-
-
-        <h4 class="title">
-	  <a href="/2014/02/05/welcome-to-the-axion5-website!/">
-	    Welcome!</a></h4>
-
-      </header>
-      <!-- <div class="entry" > -->
-	
-	<div align="justify" style="line-height:1.7em;font-size:13px;font-style:italic;margin-top:-13px"> 
-        <br/>
-
-        <p>I put this site together as a place to showcase the various websites and
-          projects I've done, and to perhaps publish what I think might be useful for
-          others to read.</p>
-        <p>If you are interested in contracting me to build a website for you, please head
-          over to <a href="/websites">websites</a> where I've listed the sites I've done so far and a
-          little info on how it was done.</p>
-        <p>On the <a href="/projects">projects</a> page I've listed a few of my more elaborate or
-          interesting software projects I've done so far. The source code for these and
-          others is up on <a href="http://github.com/michieljoris" target="_blank">github</a>.</p>
-        <p>If you're interested in me personally please check out the <a href="/about">about</a>
-          page. For more detailed background on me please checkout either
-          <a href="http://www.linkedin.com/in/michieljoris" target="_blank">linkedin</a> or
-          <a href="http://careers.stackoverflow.com/michieljoris" target="_blank">careers.stackoverflow</a>.</p>
-        <p>Contact me at <a href="mailto:mail@axion5.net">mail@axion5.net</a></p>
-
-      </div>
-      <footer>
-        <div class="clearfix"></div>
-      </footer>
-      
-  <!--   </div> -->
-  <!-- </article> -->
 </aside>
     <div class="clearfix"></div>
   </div>
