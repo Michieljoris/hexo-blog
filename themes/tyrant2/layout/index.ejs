@@ -1,0 +1,45 @@
+  <article class="post">
+
+    <div class="post-content">
+      <header>
+
+
+
+
+        <h1 class="title"><a href="/2014/02/05/welcome-to-the-axion5-website!/">Welcome to the axion5 website!</a></h1>
+
+      </header>
+      <div class="entry">
+        <br/>
+
+        <p>I put this site together as a place to showcase the various websites and
+          projects I've done, and to perhaps publish what I think might be useful for
+          others to read.</p>
+        <p>If you are interested in contracting me to build a website for you, please head
+          over to <a href="/websites">websites</a> where I've listed the sites I've done so far and a
+          little info on how it was done.</p>
+        <p>On the <a href="/projects">projects</a> page I've listed a few of my more elaborate or
+          interesting software projects I've done so far. The source code for these and
+          others is up on <a href="http://github.com/michieljoris" target="_blank">github</a>.</p>
+        <p>If you're interested in me personally please check out the <a href="/about">about</a>
+          page. For more detailed background on me please checkout either
+          <a href="http://www.linkedin.com/in/michieljoris" target="_blank">linkedin</a> or
+          <a href="http://careers.stackoverflow.com/michieljoris" target="_blank">careers.stackoverflow</a>.</p>
+        <p>Contact me at <a href="mailto:mail@axion5.net">mail@axion5.net</a></p>
+
+      </div>
+      <footer>
+
+
+
+
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+  </article>
+
+<% page.posts.each(function(item){ %>
+  <%- partial('_partial/article', {item: item, index: true}) %>
+<% }); %>
+
+<%- partial('_partial/pagination') %>
